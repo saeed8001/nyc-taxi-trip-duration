@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taxi-duration
+  labels:
+    app: taxi-duration
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: taxi-duration
+  template:
+    metadata:
+      labels:
+        app: taxi-duration
+    spec:
+      containers:
+        - name: taxi-duration
+          image: taxi-duration:1.0
+          imagePullPolicy: IfNotPresent   # image is loaded into kind with `kind load docker-image`
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
