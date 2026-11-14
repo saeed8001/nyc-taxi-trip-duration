@@ -72,8 +72,8 @@ A dispatch or booking application would call `POST /predict` with the trip detai
 ### 5.1 Environment (virtual environment)
 
 ```bash
-git clone <THIS_REPO_URL>
-cd <REPO_FOLDER>
+git clone https://github.com/saeed8001/nyc-taxi-trip-duration.git
+cd nyc-taxi-trip-duration
 
 python -m venv .venv
 # activate it:
